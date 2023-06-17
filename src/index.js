@@ -22,7 +22,13 @@ const lightbox = new SimpleLightbox('.gallery a');
 
 // Функция для выполнения запроса и обновления галереи
 const fetchImages = async () => {
-  try {
+   if (images.length === perPage) {
+    loadMoreBtn.style.display = 'block';
+    applyButtonStyles(); // Добавьте вызов функции applyButtonStyles()
+  } else {
+    loadMoreBtn.style.display = 'none';
+  }
+    try {
     const response = await axios.get('https://pixabay.com/api/', {
       params: {
         key: API_KEY,
@@ -102,5 +108,9 @@ loadMoreBtn.addEventListener('click', () => {
   fetchImages();
 });
 
-// Скрываем кнопку "Load more" изначально
-loadMoreBtn.style.display = 'none';
+
+
+function applyButtonStyles() {
+  const loadMoreBtn = document.querySelector('.load-more');
+  loadMoreBtn.classList.add('button-center');
+}
