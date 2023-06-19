@@ -1,34 +1,25 @@
-// Импорт библиотек
 import axios from 'axios';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 
-// API ключ
+
 const API_KEY = '37350286-5f3aac9a725d44d4223b6e61c';
 
-// Форма поиска
+
 const searchForm = document.getElementById('search-form');
 const searchInput = searchForm.querySelector('input');
 const loadMoreBtn = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
 
-// Параметры запроса
+
 let searchQuery = '';
 let page = 1;
 const perPage = 40;
 
-// Инициализация SimpleLightbox
 const lightbox = new SimpleLightbox('.gallery a');
 
-// Функция для выполнения запроса и обновления галереи
 const fetchImages = async () => {
-   if (images.length === perPage) {
-    loadMoreBtn.style.display = 'block';
-    applyButtonStyles(); // Добавьте вызов функции applyButtonStyles()
-  } else {
-    loadMoreBtn.style.display = 'none';
-  }
-    try {
+  try {
     const response = await axios.get('https://pixabay.com/api/', {
       params: {
         key: API_KEY,
@@ -83,6 +74,7 @@ const fetchImages = async () => {
 
       if (images.length === perPage) {
         loadMoreBtn.style.display = 'block';
+        applyButtonStyles();
       } else {
         loadMoreBtn.style.display = 'none';
       }
@@ -93,7 +85,7 @@ const fetchImages = async () => {
   }
 };
 
-// Обработчик сабмита формы
+
 searchForm.addEventListener('submit', (event) => {
   event.preventDefault();
   searchQuery = searchInput.value.trim();
@@ -102,7 +94,6 @@ searchForm.addEventListener('submit', (event) => {
   fetchImages();
 });
 
-// Обработчик клика на кнопку "Load more"
 loadMoreBtn.addEventListener('click', () => {
   page += 1;
   fetchImages();
